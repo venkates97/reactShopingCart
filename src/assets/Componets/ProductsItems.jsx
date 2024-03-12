@@ -3,17 +3,20 @@ import { useState } from 'react';
 
 export function ProductsItems({data, salesStyle,cartItems,setcartItems,key}) {
  const [checkCart, setcheckCart] = useState(false);
+ const [cartText, setcartText] = useState("Add_to_cart")
 
  function AddItems() {
   console.log("Addtems");
   setcheckCart(!checkCart);
   setcartItems(cartItems+1);
+  setcartText("Remove from Cart");
 }
 
 function RemoveItems() {
   console.log("Remove Items");
   setcheckCart(!checkCart);
   setcartItems(cartItems-1);
+  setcartText("Add_to_cart");
 
 }
 
@@ -51,9 +54,11 @@ function RemoveItems() {
       {/* <!-- Product actions--> */}
       <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
         <div className="text-center"  onClick={()=>{
-          checkCart === false ? AddItems(): RemoveItems();
+          data.buttonOp === "Add_to_cart" ? (
+            checkCart === false ? AddItems(): RemoveItems() 
+            ):""
           }}><a className="btn btn-outline-dark mt-auto" href="#" >{
-          data.buttonOp 
+          data.buttonOp === "view_options" ? data.buttonOp : cartText
           }</a></div>
       </div>
     </div>
